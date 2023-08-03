@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <title>Landing Page</title>
+</head>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/assets/background-portal.jpg');
+    background-size: cover;
+    background: #ececec;
+  }
+
+  .box-area {
+    width: 930px;
+  }
+</style>
+
+<body>
+  <nav>
+    <%- include('./partials/navbar') %>
+  </nav><br>
+
+  <h3 class="text-center">Welcome to Portal</h3>
+
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row border rounded-4 p-5 bg-white shadow box-area">
+      <div class="d-grid gap-2 col-2 mx-auto">
+        <a href="/register" class="btn btn-secondary btn-sm" role="button">
+          Register
+        </a>
+        <a href="/login" class="btn btn-secondary btn-sm" role="button">
+          Login
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <%- include('./partials/footer') %>
+  </footer>
+</body>
+
+</html>

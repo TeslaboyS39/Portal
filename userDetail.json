@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "userName": "usersatu",
+    "userProfilePicture": "https://th.bing.com/th/id/OIP.ViuFUmOa1PKJ0PUTPi_fqwHaHa?pid=ImgDet&rs=1",
+    "userBirthDate": "2001-12-18",
+    "balance": 10000000
+  },
+  {
+    "id": 2,
+    "userName": "userdua",
+    "userProfilePicture": "https://www.idlememe.com/wp-content/uploads/2021/10/shrek-meme-idlememe-5.jpg",
+    "userBirthDate": "2002-12-19",
+    "balance": 11000000
+  },
+  {
+    "id": 3,
+    "userName": "usertiga",
+    "userProfilePicture": "https://3.bp.blogspot.com/-lgBQv46yTIs/V3Cmn2uc1LI/AAAAAAAAAOg/1OlcsuzQAVAbdfWWJboM0vWg_rR0slg8QCLcB/s1600/Elizabeth%2BAlexandra%2BMary.jpg",
+    "userBirthDate": "2003-12-20",
+    "balance": 12000000
+  }
+]
