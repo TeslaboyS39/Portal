@@ -1,5 +1,6 @@
 const { User, UserDetail } = require('../models')
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer')
 
 class Controller {
   static home(req, res) {
@@ -7,9 +8,7 @@ class Controller {
   }
 
   static user(req, res) {
-    User.findAll({
-      include: UserDetail
-    })
+    User.findAll()
       .then((users) => {
         res.render('user', { users })
       })
@@ -22,7 +21,7 @@ class Controller {
   static userDetail(req, res) {
     UserDetail.findOne({
       where: {
-        userId: UserDetail.id
+        id: 1
       }
     })
       .then((detail) => {
@@ -67,6 +66,26 @@ class Controller {
     })
       .then(user => {
         if (!user) throw 'Unregistered email'
+
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'admin1@gmail.com',
+            pass: 'admin123',
+          }
+        })
+          const option = {
+            from: "'usersatu'",
+            to: email,
+            subject: 'testing',
+            text: 'hello',
+          }
+
+          transporter.sendMail(option, (err, info) => {
+            if (err) console.error(err);
+            console.log(`email sent to : ${email}`);
+          })
+
         if (user.role === 'admin') {
           if (password !== user.password) throw 'Incorrect password!'
           // after register, redirect to user page

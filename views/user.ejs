@@ -13,12 +13,15 @@
       <tr>
         <th>Role</th>
       </tr>
-      <% uers.forEach(el => { %>
+      <% users.forEach(el => { %>
         <tr>
           <td><%= el.role %></td>
         </tr>
       <% }) %>
     </table>
+    <a href="/userDetails">
+      <button class="btn btn-secondary btn-sm">See Detail</button>
+    </a>
   </form>
 </body>
 </html>
