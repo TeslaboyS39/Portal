@@ -44,11 +44,11 @@ class Controller {
 
   static createUser(req, res) {
     const { email, password } = req.body
-    User.create({ email, password })
+    User.create({ email, password, role: 'user' })
       .then((user) => {
         req.session.userId = user.id
         req.session.role = user.role
-        res.redirect('/users')
+        res.redirect('/login')
       })
       .catch(err => {
         console.log(err);
@@ -67,12 +67,20 @@ class Controller {
     })
       .then(user => {
         if (!user) throw 'Unregistered email'
-        const validUser = bcrypt.compareSync(password, user.password);
-        if (!validUser) throw 'Incorrect password!'
-        // after register, redirect to user page
-        req.session.userId = user.id
-        req.session.role = user.role
-        res.redirect('/users')
+        if (user.role === 'admin') {
+          if (password !== user.password) throw 'Incorrect password!'
+          // after register, redirect to user page
+          req.session.userId = user.id
+          req.session.role = user.role
+          res.redirect('/admin')
+        } else {
+          const validUser = bcrypt.compareSync(password, user.password);
+          if (!validUser) throw 'Incorrect password!'
+          // after register, redirect to user page
+          req.session.userId = user.id
+          req.session.role = user.role
+          res.redirect('/users')
+        }
       })
       .catch(err => {
         console.log(err);
