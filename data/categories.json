@@ -1,0 +1,41 @@
+[
+    {
+        "categoryName": "Groceries"
+    },
+    {
+        "categoryName": "Entertainment"
+    },
+    {
+        "categoryName": "Healthcare"
+    },
+    {
+        "categoryName": "Transportation"
+    },
+    {
+        "categoryName": "Utilities"
+    },
+    {
+        "categoryName": "Education"
+    },
+    {
+        "categoryName": "Travel"
+    },
+    {
+        "categoryName": "Shopping"
+    },
+    {
+        "categoryName": "Dining"
+    },
+    {
+        "categoryName": "Investment"
+    },
+    {
+        "categoryName": "Family"
+    },
+    {
+        "categoryName": "Income"
+    },
+    {
+        "categoryName": "Misc."
+    }
+]

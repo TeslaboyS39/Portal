@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;  
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/userProfile">Your Profile</a>
+        <a href="/transactionsList">My Cash Flow</a>
+        <a href="/addCategory">Add Category</a>
+        <a href="/insight">Insight</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <div class="container">
+        <h1>My Cash Flow</h1>
+        <h2>Current Balance: </h2>
+        <form action="/search" method="get">
+            <input type="text" name="searchQuery" placeholder="Search Transactions">
+            <button type="submit">Search</button>
+        </form>
+        <br>
+        <% if (transactions.length === 0) { %>
+            <p>No transactions found.</p>
+        <% } else { %>
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>Transaction Name</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Edit</th>
+                </tr>
+                <% transactions.forEach((el, i) => { %>
+                    <tr>
+                        <td><%= ++i %></td>
+                        <td><%= el.transactionName %></td>
+                        <td><%= el.formatDate %></td>
+                        <td><%= el.formatAmount %></td>
+                        <td><%= el.transactionType %></td>
+                        <td><%= el.description %></td>
+                        <td><%= el.Category.categoryName %></td>
+                        <td>
+                            <div>
+                                <button>
+                                    <a href="/editExpense/<%= el.id %>">Edit</a>
+                                </button>
+                                <button>
+                                    <a href="/deleteExpense/<%= el.id %>">Delete</a>
+                                </button>                        
+                            </div>
+                        </td>
+                    </tr>
+                <% }) %>
+            </table>
+        <% } %>
+        <br>
+        <button class="add-button">
+            <a href="/addExpense">Add</a>
+        </button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+    {
+        "bankName": "BCA",
+        "accountNumber": "1234567890",
+        "accountBalance": 5000000,
+        "UserId": 3
+    },
+    {
+        "bankName": "Mandiri",
+        "accountNumber": "0987654321",
+        "accountBalance": 3000000,
+        "UserId": 3
+    }
+]

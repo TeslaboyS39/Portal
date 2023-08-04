@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+</head>
+<body>
+    <h1>Edit Profile</h1>
+    <% if (userDetail) { %>
+        <form action="/editProfile" method="POST">
+            <label for="userName">User Name:</label>
+            <input type="text" id="userName" name="userName" value="<%= userDetail.userName %>" required>
+
+            <label for="userBirthDate">User Birth Date:</label>
+            <input type="date" id="userBirthDate" name="userBirthDate" value="<%= userDetail.userBirthDate %>" required>
+
+            <label for="userProfilePicture">User Profile Picture URL:</label>
+            <input type="text" id="userProfilePicture" name="userProfilePicture" value="<%= userDetail.userProfilePicture %>" required>
+
+            <label for="balance">Balance:</label>
+            <input type="number" id="balance" name="balance" value="<%= userDetail.balance %>" required>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    <% } else { %>
+        <p>User profile not available.</p>
+    <% } %>
+</body>
+</html>

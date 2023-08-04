@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Register new user</h1>
+    <br>
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <br>
+    <form action="/register" method="POST">
+        <p>
+            <label>Email</label><br>
+            <input type="text" name="email">
+        </p>
+        <p>
+            <label>Password</label><br>
+            <input type="password" name="password">
+        </p>
+        <p>
+            <input type="submit" value="register">
+        </p>
+    </form>
+</body>
+</html>
