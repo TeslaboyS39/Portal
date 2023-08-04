@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const session = require('express-session');
 const nodemailer = require('nodemailer');
-const Controller = require('./path/to/your/controller');
+const Controller = require('../controllers');
 
 app.use(session({
   secret: 'secret',
