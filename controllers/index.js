@@ -1,8 +1,16 @@
-const { User, Transaction, Category, Account } = require('../models');
+const { User, Transaction, Category, Account, UserDetail } = require('../models');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
 const { Op } = require("sequelize");
 const { formatRupiah } = require('../helpers/amountFormatter');
 const { formatDate } = require('../helpers/dateFormatter');
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'fatahillah.2239.2@gmail.com',
+      pass: 'Xyzfatah123xxx',
+    },
+});
 
 class Controller {
     static home(req, res) {
@@ -32,6 +40,22 @@ class Controller {
             console.log(err);
             res.send(err);
         })
+    }
+
+    static userProfile(req, res) {
+        const userId = req.session.userId;
+        User.findOne({
+            where: { id: userId },
+            include: [UserDetail],
+        })
+        .then((user) => {
+            console.log("User nya adalah", user);
+            res.render('userProfile', { user });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
     }
 
     static transactionsList(req, res) {
@@ -194,7 +218,7 @@ class Controller {
     }
 
     static register(req, res) {
-        res.render('register')
+        res.render('register', { error: null })
     }
 
     static createUser(req, res) {
@@ -204,17 +228,37 @@ class Controller {
         .then(user => {
             req.session.userId = user.id;
             req.session.role = user.role;
+
+            const mailOptions = {
+                from: 'fatahillah.2239.2@gmail.com', 
+                to: user.email, 
+                subject: 'Selamat Datang di Aplikasi Kami!',
+                text: `Halo user dengan email ${user.email}, Selamat datang di aplikasi kami! Terima kasih telah mendaftar.`
+              };
+          
+              transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                  console.log("Error saat mengirim email:", error);
+                } else {
+                  console.log("Email berhasil dikirim:", info.response);
+                }
+              });
             // res.redirect('/home')
             res.redirect('/login')
         })
         .catch((err) => {
-            console.log(err);
-            res.send(err);
+            if (err.name === 'SequelizeValidationError') {               
+                const validationErrors = err.errors.map(error => error.message);
+                res.render('register', { error: validationErrors.join(', ') });
+            } else {
+                console.log(err);
+                res.send('An error occurred during user registration. Your email already used for registration, use another email please.');
+            }
         })
     }
 
     static showLoginForm(req, res) {
-        res.render('login')
+        res.render('login', { error: null })
     }
 
     static login(req, res) {
@@ -244,8 +288,86 @@ class Controller {
         })
         .catch(err => {
             console.log(err);
-            res.send(err);
+            res.render('login', { error: err.message });
         })
+    }
+
+    static showAddProfile(req, res) {
+        res.render('addProfile');
+    }
+
+    static addProfile(req, res) {
+        const { userName, userBirthDate, userProfilePicture, balance } = req.body;
+
+        UserDetail.create({
+            userName,
+            userBirthDate,
+            userProfilePicture,
+            balance
+        })
+        .then(() => {
+            res.redirect('/userProfile');
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+    }
+
+    static showEditProfile(req, res) {
+        const userId = req.session.userId;
+
+        UserDetail.findOne({
+            where: { id: userId },
+        })
+        .then((userDetail) => {
+            if (!userDetail) {
+                throw new Error("User profile not available.");
+            }
+            res.render('editProfile', { userDetail });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+    }
+
+    static editProfile(req, res) {
+        const userId = req.session.userId;
+        const { userName, userBirthDate, userProfilePicture, balance } = req.body;
+
+        UserDetail.findOne({
+            where: { id: userId },
+        })
+        .then((userDetail) => {
+            if (!userDetail) {
+                throw new Error("User profile not available.");
+            }
+
+            userDetail.userName = userName;
+            userDetail.userBirthDate = userBirthDate;
+            userDetail.userProfilePicture = userProfilePicture;
+            userDetail.balance = balance;
+
+            return userDetail.save();
+        })
+        .then(() => {
+            res.redirect('/userProfile');
+        })
+        .catch((err) => {
+            console.log(err);
+            res.send(err);
+        });
+    }
+
+    static logout(req, res) {        
+        req.session.destroy((err) => {
+            if (err) {
+                console.log(err);
+            }
+           
+            res.redirect('/login');
+        });
     }
 }
 

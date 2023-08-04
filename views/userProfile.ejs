@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>User Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,6 +41,27 @@
             margin: 0 auto;
             padding: 20px;
         }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;  
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -51,9 +72,16 @@
         <a href="/insight">Insight</a>
         <a href="/logout">Logout</a>
     </nav>
-    <div class="container">
-        <h1>Welcome Home!</h1>
-
-    </div>
+    <h1>User Profile</h1>
+    <% if (user.UserDetail) { %>
+        <p>User Name: <%= user.UserDetail.userName %></p> <br>
+        <p>User Birth Date: <%= user.UserDetail.userBirthDate %></p><br>
+        <p><img src="<%= user.UserDetail.userProfilePicture %>" alt="Profile Picture" width="150"></p><br>
+        <p>Balance: <%= user.UserDetail.balance %></p><br>
+        <a href="/editProfile">Edit</a>
+    <% } else { %>
+        <p>User profile not available.</p>
+        <a href="/addProfile">Add</a>
+    <% } %>
 </body>
 </html>

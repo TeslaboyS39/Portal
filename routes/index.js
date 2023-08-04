@@ -18,6 +18,12 @@ router.get('/deleteExpense/:id', Controller.deleteExpense);
 router.get('/addCategory', Controller.showAddCategory);
 router.post('/addCategory', Controller.addCategory);
 router.get('/search', Controller.searchTransactions);
+router.get('/logout', Controller.logout);
+router.get('/userProfile', Controller.userProfile);
 router.get('/insight', );
+router.get('/addProfile', Controller.showAddProfile); 
+router.post('/addProfile', Controller.addProfile);
+router.get('/editProfile', Controller.showEditProfile); 
+router.post('/editProfile', Controller.editProfile); 
 
 module.exports = router;

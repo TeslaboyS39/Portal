@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Transaction)
       User.hasMany(models.Account)
+      User.hasOne(models.UserDetail, {
+        foreignKey: 'id',
+      });
     }
   }
   User.init({

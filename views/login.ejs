@@ -7,8 +7,12 @@
 </head>
 <body>
     <h1>Login</h1>
-
-    <form action="/login" method="post">
+    <br>
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <br>
+    <form action="/login" method="POST">
         <p>
             <label>Email</label><br>
             <input type="text" name="email"/>
